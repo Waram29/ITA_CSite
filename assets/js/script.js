@@ -4,15 +4,43 @@ console.log('JS chargé avec succès !');
 // Sélection des éléments
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-menu");
+const navLinks = document.querySelectorAll(".nav-menu a");
+const menuIcon = hamburger.querySelector("i");
 const topBar = document.querySelector(".top-bar");
 const scrollProgress = document.getElementById("scrollProgress");
 const stats = document.querySelectorAll('.stat-number');
 
 let lastScrollTop = 0;
 
-// Click hamburger
-hamburger.addEventListener("click", () => {
-    navMenu.classList.toggle("active");
+// Fonction pour basculer le menu
+const toggleMenu = () => {
+    const isActive = navMenu.classList.toggle("active");
+    
+    // Changement d'icône avec animation
+    if (isActive) {
+        menuIcon.classList.replace("fa-bars", "fa-xmark");
+    } else {
+        menuIcon.classList.replace("fa-xmark", "fa-bars");
+    }
+};
+
+// Événement clic sur le hamburger
+hamburger.addEventListener("click", toggleMenu);
+
+// Fermeture automatique au clic sur un lien
+navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+        navMenu.classList.remove("active");
+        menuIcon.classList.replace("fa-xmark", "fa-bars");
+    });
+});
+
+// Optionnel : Fermer le menu si on clique en dehors
+document.addEventListener("click", (e) => {
+    if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+        navMenu.classList.remove("active");
+        menuIcon.classList.replace("fa-xmark", "fa-bars");
+    }
 });
 
 // Scroll detection pour cacher le top-bar
@@ -26,38 +54,31 @@ window.addEventListener("scroll", () => {
 });
 
 // ===== HERO SLIDER =====
+document.addEventListener("DOMContentLoaded", () => {
+    const slidesContainer = document.querySelector(".slides");
+    const allSlides = document.querySelectorAll(".slide");
 
-const slides = document.querySelector(".slides");
-let slideIndex = 0;
+    if (!slidesContainer || allSlides.length === 0) return; // Sécurité
 
-function showSlides() {
-  slideIndex++;
-  if (slideIndex > 1) {
-    slideIndex = 0;
-  }
-  slides.style.transform = "translateX(-" + (slideIndex * 100) + "%)";
-}
+    let slideIndex = 0;
+    const totalSlides = allSlides.length;
 
-// Fonction pour passer au slide suivant
-function nextSlide() {
-  slideIndex++;
-  if (slideIndex > 1) {
-    slideIndex = 0;
-  }
-  slides.style.transform = "translateX(-" + (slideIndex * 100) + "%)";
-}
+    function updateSlider() {
+        // Force le calcul propre du décalage
+        slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+    }
 
-// Fonction pour passer au slide précédent
-function prevSlide() {
-  slideIndex--;
-  if (slideIndex < 0) {
-    slideIndex = 1;
-  }
-  slides.style.transform = "translateX(-" + (slideIndex * 100) + "%)";
-}
+    function nextSlide() {
+        slideIndex++;
+        if (slideIndex >= totalSlides) {
+            slideIndex = 0;
+        }
+        updateSlider();
+    }
 
-// Défilement automatique toutes les 7 secondes
-setInterval(showSlides, 7000);
+    // Lancement automatique
+    let autoSlideInterval = setInterval(nextSlide, 7000);
+});
 
 // ===== ANIMATION DES CHIFFRES =====
 
@@ -240,3 +261,19 @@ document.getElementById("contactForm").addEventListener("submit", async function
         setTimeout(() => { status.style.display = "none"; }, 5000);
     }
 });
+
+// ===== TOOLTIP WHATSAPP =====
+const tooltip = document.getElementById('whatsapp-tooltip');
+const button = document.getElementById('whatsapp-button');
+
+button.addEventListener('mouseenter', function() {
+    tooltip.style.display = 'block';
+});
+
+button.addEventListener('mouseleave', function() {
+    tooltip.style.display = 'none';
+});
+
+
+// Dans ton event listener de bouton :
+element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
