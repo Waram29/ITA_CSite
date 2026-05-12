@@ -313,10 +313,8 @@ body {
     color: var(--surface);
     text-decoration: none;
     border-radius: 999px;
-    font-weight: 800;
+    font-weight: 900;
     font-size: 1rem;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
     box-shadow: 0 14px 30px var(--green-glow);
     transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.45s ease;
 }
@@ -407,8 +405,8 @@ body {
     }
 
     .nav-menu a:hover {
-        color: var(--gold);
-        background-color: var(--green-soft);
+        color: var(--white);
+        background-color: var(--green-bright);
         transition: background-color 0.3s ease, color 0.4s ease;
     }
 
@@ -1543,18 +1541,7 @@ body {
     .step-number { position: relative; margin-bottom: 10px; }
     */
 }
-/* Responsive */
-/* @media (max-width: 768px) {
-    .process-timeline {
-        padding-left: 0;
-    }
-    .step-content {
-        padding: 20px;
-    }
-    .step-content h3 {
-        font-size: 1.3rem;
-    }
-} */
+
 
 /* ===== FAQ SECTION ===== */
 .faq-section {
@@ -1819,7 +1806,7 @@ body {
 
 @media (max-width: 600px) {
     .slide-3d { min-width: 100%; }
-    .slide-3d.active { transform: scale(1); }
+    .slide-3d.active { transform: scale(1); opacity: 1; }
     .slider-3d-container {
         flex-direction: column;
         position: relative;
@@ -1835,10 +1822,10 @@ body {
         margin: 0;
     }
     .nav-btn.prev {
-        left: calc(50% - 30px);
+        left: calc(50% - 60px);
     }
     .nav-btn.next {
-        left: calc(50% + 30px);
+        left: calc(50% + 10px);
     }
 }
 
@@ -2461,6 +2448,13 @@ body {
     max-width: 400px;
 }
 
+.brand-info h3{
+    text-align: center;
+    font-size: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
 /* Réseaux Sociaux (Cercles discrets) */
 .studio-socials {
     display: flex;
@@ -2553,41 +2547,7 @@ body {
     font-size: 0.85rem;
 }
 
-/* Newsletter Look  */
-.newsletter-form {
-    display: flex;
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: 6px;
-    overflow: hidden;
-    margin-top: 10px;
-}
 
-.newsletter-form input {
-    background: transparent;
-    border: none;
-    padding: 12px 15px;
-    color: #fff;
-    flex: 1;
-    font-size: 0.8rem;
-}
-
-.newsletter-form input::placeholder {
-    color: rgba(255, 255, 255, 0.3);
-}
-
-.newsletter-form button {
-    background: var(--gold); /* Le jaune bouton de l'image.png */
-    border: none;
-    width: 45px;
-    color: var(--navy);
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: 0.3s;
-}
-
-.newsletter-form button:hover {
-    filter: brightness(1.2);
-}
 
 .cta-link {
     display: inline-block;
@@ -2615,7 +2575,7 @@ body {
 .cta-link_foot {
     font-size: 0.60rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
     opacity: 0.4;
 }
@@ -2745,7 +2705,7 @@ body {
 /* Tooltip avec effet Glassmorphism */
 #whatsapp-tooltip {
     position: absolute;
-    bottom: 85px; 
+    bottom: 75px; 
     right: 0;
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
@@ -2798,505 +2758,55 @@ body {
         bottom: 15px;
     }
     .whatsapp-float i { font-size: 1.8rem; }
+    #whatsapp-tooltip { bottom: 60px; font-size: 0.75rem; padding: 8px 15px; }
 }
 
-
-/* ===== RESPONSIVE ===== */
-/* 
-@media (max-width: 1024px) {
-    .top-bar {
-        padding: 10px 20px;
-    }
-
-    .navbar {
-        padding: 0 18px;
-    }
-
-    .nav-menu li {
-        margin: 0 10px;
-    }
-
-    .brand {
-        gap: 0.5rem;
-    }
-
-    .about-section {
-        padding: 80px 20px;
-    }
-
-    .about-container {
-        gap: 60px;
-        grid-template-columns: 1fr 1.1fr;
-    }
-
-    .about-content h2 {
-        font-size: 2.8rem;
-    }
-
-    .about-description {
-        font-size: 1.02rem;
-    }
-
-    .about-images img {
-        max-width: 100%;
-        height: auto;
-    }
-}
-@media (max-width: 992px) {
-    .about-section {
-        padding: 75px 20px;
-    }
-
-    .about-container {
-        gap: 50px;
-    }
-
-    .about-content h2 {
-        font-size: 2.5rem;
-    }
-
-    .about-description {
-        font-size: 1rem;
-    }
-
-    .about-images img {
-        max-width: 400px;
-    }
+/* ===== BOUTON REMONTER EN HAUT ===== */
+.back-to-top {
+    position: fixed;
+    bottom: 160px; /* Position fixe sur l'écran */
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--azure-light);
+    color: var(--green);
+    border-radius: 50%;
+    display: flex; /* Pour centrer l'icône */
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2000; /* Plus haut que tout le reste */
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    pointer-events: auto; /* Permet de cliquer même si c'est invisible */
+    
+    /* État caché initial */
+    opacity: 0; 
+    visibility: hidden;
+    transform: translateY(20px);
 }
 
+/* État affiché via JS */
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background-color: var(--green);
+    color: white;
+    transform: translateY(-5px);
+}
+
+/* Ajustement mobile */
 @media (max-width: 768px) {
-    .top-bar {
-        justify-content: center;
-        text-align: center;
-    }
-
-    .top-right,
-    .top-left {
-        justify-content: center;
-    }
-
-    .navbar {
-        flex-wrap: wrap;
-        padding: 0 16px;
-        gap: 10px;
-    }
-
-    .nav-menu {
-        position: absolute;
-        top: 100px;
-        right: 0;
-        left: 0;
-        background-color: var(--azure);
-        flex-direction: column;
-        width: 100%;
-        display: none;
-        box-shadow: 0 5px 15px var(--shadow-dark);
-        padding: 20px 0;
-        border-top: 1px solid var(--shadow);
-        z-index: 999;
-    }
-
-    .nav-menu.active {
-        display: flex;
-    }
-
-    .nav-menu li {
-        margin: 12px 0;
-        text-align: center;
-    }
-
-    .nav-menu a {
-        font-size: 1rem;
-        padding: 8px 0;
-    }
-
-    .btn-contact {
-        order: 1;
-        width: 100%;
-        text-align: center;
-        padding: 12px 0;
-    }
-
-    .hamburger {
-        display: block;
-    }
-
-    .top-bar {
-        flex-direction: column;
-    }
-
-    .top-right {
-        width: 100%;
-        justify-content: center;
-        gap: 15px;
-    }
-
-    .top-bar span {
-        width: 100%;
-        justify-content: center;
-    }
-    .hero-content {
-        flex-direction: column;
-        text-align: center;
-        margin-left: 0;
-    }
-
-    .hero-image img {
-        height: 280px;
-        margin-bottom: 10px;
-    }
-
-    .hero-text h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero-text p {
-        font-size: 1rem;
-    }
-    .about-section {
-        padding: 70px 20px;
-    }
-
-    .about-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-    }
-
-    .about-subtitle {
-        font-size: 1.1rem;
-        margin-bottom: 30px;
-    }
-
-    .about-content h2 {
-        font-size: 2.2rem;
-        margin-bottom: 25px;
-    }
-
-    .about-content h2 br {
-        display: none;
-    }
-
-    .about-description {
-        font-size: 1rem;
-        margin-bottom: 20px;
-    }
-
-    .about-images {
-        order: 2;
-        max-width: 400px;
-        margin: 0 auto;
-    }
-
-    .about-content {
-        order: 1;
-    }
-
-    .about-cta-btn {
-        margin-top: 25px;
-    }
-
-    .about-badges {
-        justify-content: center;
-    }
-
-    .badge {
-        flex: 1 1 auto;
-        min-width: auto;
-        font-size: 0.9rem;
-        padding: 10px 15px;
-    }
-
-    .about-content h2 br {
-        display: none;
-    }
-
-    .about-description {
-        font-size: 1rem;
-    }
-
-    .badge {
-        font-size: 0.9rem;
-        padding: 10px 15px;
-    }
-
-    .about-card h3 {
-        font-size: 1.2rem;
-    }
-
-    .about-card {
-        padding: 25px;
+    .back-to-top {
+        bottom: 130px; /* On l'ajuste pour pas qu'il touche WhatsApp sur mobile */
+        right: 20px;
+        width: 45px;
+        height: 45px;
     }
 }
-
-@media (max-width: 600px) {
-    .top-bar {
-        padding: 10px 12px;
-        font-size: 0.95rem;
-    }
-
-    .navbar {
-        padding: 0 14px;
-    }
-
-    .logo-img {
-        width: 65px;
-        height: 75px;
-    }
-
-    .brand-name {
-        font-size: 1rem;
-    }
-
-    .brand-sub {
-        font-size: 0.82rem;
-    }
-
-    .hero-slider {
-        height: 70vh;
-    }
-
-    .hero-content {
-        padding: 30px;
-        flex-direction: column;
-    }
-
-    .hero-image img {
-        height: 250px;
-    }
-
-    .hero-text h1 {
-        font-size: 2rem;
-    }
-
-    .about-section {
-        padding: 60px 15px;
-    }
-
-    .about-content h2 {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-    }
-
-    .about-content h2 br {
-        display: none;
-    }
-
-    .about-description {
-        font-size: 0.95rem;
-        line-height: 1.6;
-    }
-
-    .about-badges {
-        justify-content: center;
-    }
-
-    .badge {
-        flex: 1 1 100%;
-        width: 100%;
-        min-width: 0;
-        padding: 10px 14px;
-        font-size: 0.88rem;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        font-size: 15px;
-    }
-
-    .top-bar {
-        padding: 10px 12px;
-    }
-
-    .navbar {
-        padding: 0 12px;
-    }
-
-    .logo-img {
-        width: 60px;
-        height: 70px;
-    }
-
-    .brand-name {
-        font-size: 0.95rem;
-    }
-
-    .brand-sub {
-        font-size: 0.78rem;
-    }
-
-    .nav-menu {
-        top: 95px;
-        padding: 16px 0;
-    }
-
-    .hero-slider {
-        height: 60vh;
-    }
-
-    .hero-content {
-        padding: 20px;
-    }
-
-    .about-section {
-        padding: 50px 12px;
-    }
-
-    .about-content h2 {
-        font-size: 1.5rem;
-    }
-
-    .about-container {
-        gap: 30px;
-    }
-
-    .about-content h2 br {
-        display: none;
-    }
-
-    .about-description {
-        font-size: 0.9rem;
-    }
-
-    .about-badges {
-        justify-content: center;
-    }
-
-    .badge {
-        padding: 9px 12px;
-        font-size: 0.85rem;
-        gap: 6px;
-    }
-
-    .hero-image img {
-        height: 200px;
-    }
-
-    .hero-text h1 {
-        font-size: 1.5rem;
-    }
-
-    .hero-text p {
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 420px) {
-    .top-bar {
-        padding: 10px 10px;
-    }
-
-    .navbar {
-        padding: 0 10px;
-    }
-
-    .brand {
-        gap: 0.35rem;
-    }
-
-    .btn-contact,
-    .btn-primary,
-    .btn-secondary {
-        width: 100%;
-    }
-
-    .hero-slider {
-        height: 55vh;
-    }
-
-    .hero-content {
-        padding: 15px;
-        flex-direction: column;
-    }
-
-    .hero-text h1 {
-        font-size: 1.4rem;
-    }
-
-    .hero-btn {
-        width: 100%;
-    }
-
-    .about-badges {
-        justify-content: center;
-    }
-
-    .badge {
-        min-width: auto;
-        padding: 8px 12px;
-        font-size: 0.82rem;
-    }
-
-    .about-section {
-        padding: 40px 10px;
-    }
-
-    .about-content h2 {
-        font-size: 1.3rem;
-        margin-bottom: 15px;
-    }
-
-    .about-content h2 br {
-        display: none;
-    }
-
-    .about-description {
-        font-size: 0.88rem;
-        margin-bottom: 12px;
-    }
-
-    .about-cta-btn {
-        padding: 12px 25px;
-        font-size: 0.9rem;
-    }
-}
-
-/* ULTRA PETITS MOBILES */
-/*
-@media (max-width: 360px) {
-    .about-section {
-        padding: 35px 8px;
-    }
-
-    .about-section::before {
-        display: none;
-    }
-
-    .about-subtitle {
-        font-size: 0.85rem;
-        margin-bottom: 15px;
-        letter-spacing: 0.05em;
-    }
-
-    .about-content h2 {
-        font-size: 1.2rem;
-        margin-bottom: 12px;
-    }
-
-    .about-description {
-        font-size: 0.85rem;
-        margin-bottom: 10px;
-        padding: 0 5px;
-    }
-
-    .about-images {
-        max-width: 250px;
-    }
-
-    .about-badges {
-        justify-content: center;
-    }
-
-    .badge {
-        width: 100%;
-        padding: 8px 10px;
-        font-size: 0.8rem;
-        justify-content: center;
-    }
-
-    .about-cta-btn {
-        padding: 12px 18px;
-        font-size: 0.85rem;
-    }
-} */

@@ -10,6 +10,31 @@ const topBar = document.querySelector(".top-bar");
 const scrollProgress = document.getElementById("scrollProgress");
 const stats = document.querySelectorAll('.stat-number');
 
+// ===== BOUTON "BACK TO TOP" =====
+// ===== BOUTON "BACK TO TOP" (Version Corrigée) =====
+const backToTopBtn = document.getElementById('back-to-top');
+
+if (backToTopBtn) { // Sécurité : on vérifie que le bouton existe dans le HTML
+    window.addEventListener('scroll', () => {
+        // window.pageYOffset est plus compatible avec les vieux navigateurs
+        const scrollY = window.scrollY || window.pageYOffset;
+        
+        if (scrollY > 300) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    });
+
+    backToTopBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
 let lastScrollTop = 0;
 
 // Fonction pour basculer le menu
@@ -319,3 +344,4 @@ function handleSwipe() {
         }
     }
 }
+
