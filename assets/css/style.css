@@ -720,15 +720,6 @@ body {
     margin-top: 10px;
 }
 
-.about-description {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: var(--muted);
-    margin-bottom: 20px;
-    transition: color 0.3s ease;
-}
-
-
 /* ANIMATIONS */
 
 @keyframes slideInRight {
@@ -766,6 +757,7 @@ body {
     color: var(--muted);
     margin-bottom: 25px;
     transition: all 0.3s ease;
+    text-align: justify;
 }
 
 
@@ -960,7 +952,7 @@ body {
     }
 
     .badge {
-        width: auto; /* Badges pleine largeur pour une lecture claire */
+        width: 70%; /* Badges pleine largeur pour une lecture claire */
         justify-content: center;
     }
 
@@ -1182,7 +1174,7 @@ body {
     margin-bottom: 50px;
     border-radius: 50px;
     background: var(--surface);
-    padding: 5px;
+    padding: 6px;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -1192,7 +1184,7 @@ body {
 .tab-btn {
     padding: 15px 30px;
     border: none;
-    background: none;
+    /* background: none; */
     cursor: pointer;
     font-size: 1.1rem;
     font-weight: 700;
@@ -1202,6 +1194,8 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    background-color: var(--light-green);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .tab-btn i {
@@ -1209,9 +1203,18 @@ body {
 }
 
 /* État Actif des Boutons */
+.tab-btn:hover {
+    /* background-color: var(--green);
+    color: white; */
+    transform: scale(1.05);
+}
 .tab-btn.active {
     background-color: var(--green);
     color: white;
+    transition: 0.5s ease in-out; ;
+}
+.tab-btn.active:hover {
+    transform: none;
 }
 
 /* Zone Contenu - Masqué par défaut */
