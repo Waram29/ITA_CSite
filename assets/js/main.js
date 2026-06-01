@@ -85,12 +85,131 @@ document.querySelectorAll('.faq-question').forEach(question => {
     });
 });
 
+// --- SELECT PERSONNALISÉ ---
+function initCustomSelect(wrapper) {
+    const nativeSelect = wrapper.querySelector(".form-select-native");
+    const trigger = wrapper.querySelector(".custom-select-trigger");
+    const label = wrapper.querySelector(".custom-select-label");
+    const options = wrapper.querySelectorAll(".custom-select-option");
+    if (!nativeSelect || !trigger || !label) return null;
+
+    const placeholder = nativeSelect.options[0]?.textContent.trim() || "Choisissez une option";
+
+    const close = () => {
+        wrapper.classList.remove("open");
+        trigger.setAttribute("aria-expanded", "false");
+        options.forEach((opt) => opt.classList.remove("is-highlighted"));
+    };
+
+    const open = () => {
+        wrapper.classList.remove("is-invalid");
+        wrapper.classList.add("open");
+        trigger.setAttribute("aria-expanded", "true");
+    };
+
+    const selectOption = (option) => {
+        nativeSelect.value = option.dataset.value;
+        nativeSelect.dispatchEvent(new Event("change", { bubbles: true }));
+        label.textContent = option.textContent.trim();
+        label.classList.remove("is-placeholder");
+        options.forEach((opt) => {
+            const isSelected = opt === option;
+            opt.classList.toggle("is-selected", isSelected);
+            opt.setAttribute("aria-selected", isSelected ? "true" : "false");
+        });
+        close();
+    };
+
+    const reset = () => {
+        nativeSelect.selectedIndex = 0;
+        label.textContent = placeholder;
+        label.classList.add("is-placeholder");
+        options.forEach((opt) => {
+            opt.classList.remove("is-selected", "is-highlighted");
+            opt.setAttribute("aria-selected", "false");
+        });
+        close();
+        wrapper.classList.remove("is-invalid");
+    };
+
+    trigger.addEventListener("click", (e) => {
+        e.preventDefault();
+        wrapper.classList.contains("open") ? close() : open();
+    });
+
+    options.forEach((option) => {
+        option.addEventListener("click", () => selectOption(option));
+        option.addEventListener("mouseenter", () => {
+            options.forEach((opt) => opt.classList.remove("is-highlighted"));
+            option.classList.add("is-highlighted");
+        });
+    });
+
+    trigger.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            wrapper.classList.contains("open") ? close() : open();
+        }
+        if (e.key === "Escape") close();
+        if (e.key === "ArrowDown" && options.length) {
+            e.preventDefault();
+            if (!wrapper.classList.contains("open")) open();
+            options[0].focus();
+        }
+    });
+
+    options.forEach((option, index) => {
+        option.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                selectOption(option);
+            }
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                options[Math.min(index + 1, options.length - 1)]?.focus();
+            }
+            if (e.key === "ArrowUp") {
+                e.preventDefault();
+                if (index === 0) trigger.focus();
+                else options[index - 1]?.focus();
+            }
+            if (e.key === "Escape") {
+                close();
+                trigger.focus();
+            }
+        });
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!wrapper.contains(e.target)) close();
+    });
+
+    return reset;
+}
+
+const serviceSelectWrapper = document.getElementById("serviceSelect");
+const resetServiceSelect = serviceSelectWrapper ? initCustomSelect(serviceSelectWrapper) : null;
+document.getElementById("contactForm")?.addEventListener("reset", () => resetServiceSelect?.());
+
 // --- FORMULAIRE ---
 document.getElementById("contactForm")?.addEventListener("submit", async function(e) {
     e.preventDefault();
     const form = e.target;
     const status = document.getElementById("formStatus");
     const btnText = document.getElementById("btnText");
+    const serviceField = document.getElementById("service");
+
+    if (!serviceField?.value) {
+        serviceSelectWrapper?.classList.add("is-invalid");
+        serviceSelectWrapper?.classList.add("open");
+        serviceSelectWrapper?.querySelector(".custom-select-trigger")?.focus();
+        status.style.display = "block";
+        status.style.color = "#dc3545";
+        status.innerText = "Veuillez choisir un service.";
+        setTimeout(() => { if (status) status.style.display = "none"; }, 4000);
+        return;
+    }
+
     const data = new FormData(form);
 
     btnText.innerText = "Envoi en cours...";
@@ -107,6 +226,7 @@ document.getElementById("contactForm")?.addEventListener("submit", async functio
             status.style.color = "#28a745";
             status.innerText = "Merci ! Votre demande a été envoyée avec succès.";
             form.reset();
+            resetServiceSelect?.();
         } else { throw new Error(); }
     } catch (error) {
         status.style.display = "block";

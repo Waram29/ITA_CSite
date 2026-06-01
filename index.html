@@ -597,12 +597,22 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="service">Service souhaité</label>
-                                <select id="service" name="Service" required>
-                                    <option value="" disabled selected>Choisissez une option</option>
-                                    <option value="Orientation & Études">Orientation & Études à l'étranger</option>
-                                    <option value="Assistance Médicale">Assistance Médicale</option>
-                                </select>
+                                <label for="service" id="service-label">Service souhaité</label>
+                                <div class="select-wrapper custom-select" id="serviceSelect">
+                                    <select id="service" name="Service" class="form-select-native" tabindex="-1" aria-hidden="true">
+                                        <option value="" disabled selected hidden>Choisissez une option</option>
+                                        <option value="Orientation & Études">Orientation & Études à l'étranger</option>
+                                        <option value="Assistance Médicale">Assistance Médicale</option>
+                                    </select>
+                                    <button type="button" class="custom-select-trigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="service-label">
+                                        <span class="custom-select-label is-placeholder">Choisissez une option</span>
+                                        <i class="fa-solid fa-chevron-down select-icon" aria-hidden="true"></i>
+                                    </button>
+                                    <ul class="custom-select-options" role="listbox" aria-labelledby="service-label">
+                                        <li class="custom-select-option" role="option" data-value="Orientation & Études" aria-selected="false" tabindex="-1">Orientation & Études à l'étranger</li>
+                                        <li class="custom-select-option" role="option" data-value="Assistance Médicale" aria-selected="false" tabindex="-1">Assistance Médicale</li>
+                                    </ul>
+                                </div>
                             </div>
 
                             <div class="form-group">
